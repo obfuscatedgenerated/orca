@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 Gustavo Sverzut Barbieri
+ * (with modifications made for the orca project)
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -21,6 +22,9 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+#define _CRT_RAND_S // enable rand_s() from stdlib.h
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -31,6 +35,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "sha1.h"
+
+// mingw will get confused without this
+extern errno_t rand_s (unsigned int *randomValue);
 
 static void
 _cws_sha1(const void *input, const size_t input_len, void *output)
@@ -110,8 +117,25 @@ _cws_encode_base64(const uint8_t *input, const size_t input_len, char *output)
 static void
 _cws_get_random(void *buffer, size_t len)
 {
-    uint8_t *bytes = buffer;
-    uint8_t *bytes_end = bytes + len;
+  uint8_t *bytes = buffer;
+  uint8_t *bytes_end = bytes + len;
+#ifdef WIN32
+  unsigned int num;
+  errno_t err;
+  for (; bytes < bytes_end; bytes++) {
+    // use secure random function
+    // calls the same stuff as the winapi equivalents
+    // but has better support and is in the CRT
+    err = rand_s(&num);
+
+    if (err != 0) {
+      fputs("rand_s() failed", stderr);
+      abort();
+    }
+
+    *bytes = num & 0xff;
+  }
+#else
     int fd = open("/dev/urandom", O_RDONLY);
     if (fd >= 0) {
         do {
@@ -128,6 +152,7 @@ _cws_get_random(void *buffer, size_t len)
         for (; bytes < bytes_end; bytes++)
             *bytes = random() & 0xff;
     }
+#endif
 }
 
 static inline void

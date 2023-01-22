@@ -111,7 +111,7 @@ $ make install PREFIX=/mingw64
 
 * You can continue reading these docs for usage examples, ignoring the Linux-specific parts (i.e. start from [*Configuring orca*](#configuring-orca) and ignore the `sudo make install` command in the *Installing orca* section).
 
-* **NOTE: you need to link to the ws2_32 library when compiling your bot. You can pass the -lws2_32 argument to GCC or configure this within your Makefile/CMakeLists.txt alongside linking to discord and curl as stated later.**
+* **NOTE: you need to link to the ws2_32 library when compiling your bot. You can pass the -lws2_32 argument to GCC or configure this within your Makefile/CMakeLists.txt alongside linking to discord and curl as stated later. For example, in the Makefile in the `my_bot` directory, add -lws2_32 to the end of LDFLAGS (line 52).**
 
 ### On Linux
 

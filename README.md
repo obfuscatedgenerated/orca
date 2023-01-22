@@ -81,22 +81,22 @@ int main(void)
 * Install MinGW64 from [MSYS2](https://www.msys2.org/).
 * Open a MinGW64 terminal (blue background) and install the dependencies:
 ```bash
-pacman -S pacman -S mingw-w64-x86_64-curl-winssl
+$ pacman -S pacman -S mingw-w64-x86_64-curl-winssl
 ```
 
 * If you don't have them, you'll also need GCC and Make (mingw32-make will not work):
 ```bash
-pacman -S mingw-w64-x86_64-gcc make
+$ pacman -S mingw-w64-x86_64-gcc make
 ```
 
 * Still within this terminal (or another if you have added the appropriate paths to your PATH environment variable), build Orca within its directory:
 ```bash
-make
+$ make
 ```
 
 * If you want to work outside of the my-bot directory, install the library:
 ```bash
-make install PREFIX=/mingw64
+$ make install PREFIX=/mingw64
 ```
 
 * You can continue reading these docs for usage examples, ignoring the Linux-specific parts.

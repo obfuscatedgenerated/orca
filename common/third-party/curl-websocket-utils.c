@@ -23,7 +23,9 @@
  * SOFTWARE.
  */
 
+#ifdef WIN32
 #define _CRT_RAND_S // enable rand_s() from stdlib.h
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,8 +38,10 @@
 #include <fcntl.h>
 #include "sha1.h"
 
+#ifdef WIN32
 // mingw will get confused without this
 extern errno_t rand_s (unsigned int *randomValue);
+#endif
 
 static void
 _cws_sha1(const void *input, const size_t input_len, void *output)

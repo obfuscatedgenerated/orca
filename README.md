@@ -89,6 +89,11 @@ $ pacman -S pacman -S mingw-w64-x86_64-curl-winssl
 $ pacman -S mingw-w64-x86_64-gcc make
 ```
 
+* You can CD into your filesystem to prepare to clone orca. For example, to go to your Desktop:
+```bash
+$ cd /c/Users/YourUserName/Desktop
+```
+
 * Clone the repository:
 ```bash
 $ git clone https://github.com/cee-studio/orca.git && cd orca

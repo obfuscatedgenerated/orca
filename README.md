@@ -99,7 +99,7 @@ $ git clone https://github.com/cee-studio/orca.git && cd orca
 $ make
 ```
 
-* If you want to work outside of the my-bot directory, install the library:
+* If you want to work outside of the `my_bot` directory, install the library:
 ```bash
 $ make install PREFIX=/mingw64
 ```

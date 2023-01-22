@@ -70,9 +70,38 @@ int main(void)
 
 ### On Windows
 
+#### With Windows Subsystem for Linux
+
 * Install **WSL2** and get either Ubuntu or Debian [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 * **Make sure you are in your Linux $HOME folder before proceeding!**
 * Continue to [On Linux](#on-linux) and follow your distro's building steps.
+
+#### With MinGW
+
+* Install MinGW64 from [MSYS2](https://www.msys2.org/).
+* Open a MinGW64 terminal (blue background) and install the dependencies:
+```bash
+pacman -S pacman -S mingw-w64-x86_64-curl-winssl
+```
+
+* If you don't have them, you'll also need GCC and Make (mingw32-make will not work):
+```bash
+pacman -S mingw-w64-x86_64-gcc make
+```
+
+* Still within this terminal (or another if you have added the appropriate paths to your PATH environment variable), build Orca within its directory:
+```bash
+make
+```
+
+* If you want to work outside of the my-bot directory, install the library:
+```bash
+make install PREFIX=/mingw64
+```
+
+* You can continue reading these docs for usage examples, ignoring the Linux-specific parts.
+
+* **NOTE: you need to link to the ws2_32 library when compiling your bot. You can pass the -lws2_32 argument to GCC or configure this within your Makefile/CMakeLists.txt alongside linking to discord and curl as stated later.**
 
 ### On Linux
 
